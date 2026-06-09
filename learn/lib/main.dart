@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn/screens/splash.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+const Save_key_name = 'userLoggedIn';
 void main(){
   runApp(LoginScreen());
 }
@@ -22,7 +23,27 @@ class LoginScreen extends StatelessWidget {
 
       );
   }
+
+
+
+
+
+
+
+
+
+
+
+  
 }
+
+
+
+
+
+
+
+
 
 
 

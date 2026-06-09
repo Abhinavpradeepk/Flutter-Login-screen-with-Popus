@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learn/main.dart';
+import 'package:learn/screens/home.dart';
 import 'package:learn/screens/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenSplash extends StatefulWidget {
   const ScreenSplash({super.key});
@@ -9,111 +12,56 @@ class ScreenSplash extends StatefulWidget {
 }
 
 class _ScreenSplashState extends State<ScreenSplash> {
-
-
-//   @override
+  @override
   void initState() {
-    gotoLogin();
     super.initState();
+    checkUserLoggedIn();
   }
-
-// @override
-//   void didChangeDependencies() {
-//     // TODO: implement didChangeDependencies
-//     super.didChangeDependencies();
-//   }
-
-// @override
-//   void dispose() {
-//     // TODO: implement dispose
-//     super.dispose();
-//   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:Image.asset('assets/images/github.png',height: 180,),
-         
-         
+        child: Image.asset(
+          'assets/images/github.png',
+          height: 180,
+        ),
       ),
-      
-
     );
-
-
-
   }
-Future <void> gotoLogin() async{
-  await Future.delayed(Duration(seconds:3));
-  Navigator.of(context).push(MaterialPageRoute(builder: (ctx){  
-    return ScreenLogin();
-  }));
+
+  Future<void> gotoLogin() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => const ScreenLogin(),
+      ),
+    );
+  }
+
+  Future<void> checkUserLoggedIn() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    final userLogged = sharedPrefs.getBool(Save_key_name);
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    if (userLogged == true) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const ScreenHome(),
+        ),
+      );
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const ScreenLogin(),
+        ),
+      );
+    }
+  }
 }
-
-
-
-}   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
